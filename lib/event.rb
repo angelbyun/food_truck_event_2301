@@ -47,4 +47,11 @@ class Event
       item.name
     end.sort
   end
+
+  def total_inventory
+    all_items.map do |item|
+      item_info = [['Quantity', total_quantity(item)], ['Food Trucks', food_trucks_that_sell(item)]].to_h
+      [item, item_info]
+    end.to_h
+  end
 end
