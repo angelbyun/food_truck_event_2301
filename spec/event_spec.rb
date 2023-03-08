@@ -82,6 +82,8 @@ RSpec.describe Event do
 
     expect(event.food_trucks_that_sell(item1)).to eq([food_truck1, food_truck3])
     expect(event.food_trucks_that_sell(item4)).to eq([food_truck2])
+    expect(event.food_trucks_that_sell(item2)).to eq([food_truck1])
+    expect(event.food_trucks_that_sell(item3)).to eq([food_truck2])
   end
 
   it 'will list potential revenue' do
@@ -109,6 +111,10 @@ RSpec.describe Event do
     expect(food_truck1.potential_revenue).to eq(148.75)
     expect(food_truck2.potential_revenue).to eq(345.00)
     expect(food_truck3.potential_revenue).to eq(243.75)
+
+    food_truck3.stock(item2, 35)
+
+    expect(food_truck3.potential_revenue).to eq(331.25)
   end
 
   it 'lists overstocked items' do
@@ -196,6 +202,19 @@ RSpec.describe Event do
                 'Food Trucks' => [food_truck2]},
       item4 => {'Quantity' => 50,
                 'Food Trucks' => [food_truck2]}
+    })
+
+    food_truck3.stock(item4, 50)
+
+    expect(event.total_inventory).to eq({
+      item1 => {'Quantity' => 100,
+                'Food Trucks' => [food_truck1, food_truck3]},
+      item2 => {'Quantity' => 7,
+                'Food Trucks' => [food_truck1]},
+      item3 => {'Quantity' => 25,
+                'Food Trucks' => [food_truck2]},
+      item4 => {'Quantity' => 100,
+                'Food Trucks' => [food_truck2, food_truck3]}
     })
   end
 end

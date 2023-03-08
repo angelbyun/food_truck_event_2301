@@ -25,6 +25,7 @@ RSpec.describe FoodTruck do
     food_truck = FoodTruck.new("Rocky Mountain Pies")
 
     expect(food_truck.check_stock(item1)).to eq(0)
+    expect(food_truck.check_stock(item2)).to eq(0)
   end
 
   it 'will add stock' do
@@ -53,5 +54,13 @@ RSpec.describe FoodTruck do
       item2 => 12
     })
     expect(food_truck.check_stock(item2)).to eq(12)
+
+    food_truck.stock(item2, 13)
+
+    expect(food_truck.inventory).to eq({
+      item1 => 55,
+      item2 => 25
+    })
+    expect(food_truck.check_stock(item2)).to eq(25)
   end
 end
