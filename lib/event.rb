@@ -22,4 +22,23 @@ class Event
       food_truck.inventory.include?(item)
     end
   end
+
+  def overstocked_items
+    all_items.select do |item|
+      food_trucks_that_sell(item).count > 1 &&
+      total_quantity(item) > 50
+    end
+  end
+
+  def all_items
+    @food_trucks.map do |food_truck|
+      food_truck.inventory.keys
+    end.flatten.uniq
+  end
+
+  def total_quantity(item)
+    @food_trucks.map do |food_truck|
+      food_truck.inventory[item]
+    end.sum
+  end
 end

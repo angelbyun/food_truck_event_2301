@@ -22,4 +22,5 @@ class FoodTruck
       item.price * quantity
     end.sum
   end
+
 end
