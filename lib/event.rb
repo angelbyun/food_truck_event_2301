@@ -41,4 +41,10 @@ class Event
       food_truck.inventory[item]
     end.sum
   end
+
+  def sorted_item_list
+    all_items.map do |item|
+      item.name
+    end.sort
+  end
 end
